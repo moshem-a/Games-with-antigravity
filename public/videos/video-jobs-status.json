@@ -1,0 +1,125 @@
+{
+  "orchestrationMode": "PARALLEL_CONCURRENT",
+  "model": "models/gemini-omni-1.2-flash",
+  "aspectRatio": "16:9",
+  "duration": "15s",
+  "batchStartedAt": "2026-11-09T12:35:25.794448+00:00",
+  "jobs": {
+    "stage1": {
+      "id": "stage1",
+      "stageNumber": 1,
+      "title": "VIDEO 1 \u2014 THE WORLD REVEAL",
+      "revealTitle": "THE WORLD HAS BEEN DISCOVERED",
+      "revealSubtitle": "A new adventure is about to begin.",
+      "filename": "public/videos/stage1-world-reveal.mp4",
+      "model": "models/gemini-omni-1.2-flash",
+      "status": "Verified",
+      "statusHistory": [
+        {
+          "status": "Pending",
+          "timestamp": "2026-11-09T12:35:25.794760+00:00"
+        },
+        {
+          "status": "Generating",
+          "timestamp": "2026-11-09T12:35:25.824648+00:00"
+        },
+        {
+          "status": "Completed",
+          "timestamp": "2026-11-09T12:36:50.496441+00:00"
+        },
+        {
+          "status": "Verified",
+          "timestamp": "2026-11-09T12:36:50.497320+00:00"
+        }
+      ],
+      "referenceImages": [
+        "public/assets/environment/environment_concept.png",
+        "public/assets/character/character_canonical.png"
+      ],
+      "prompt": "Create a breathtaking cinematic announcement teaser for a brand-new original mobile game called MONSTER RUSH: THE LOST ISLAND.\n\nSTORYBOARD:\n\n0\u20134 seconds:\nStart in complete darkness. A tiny magical blue light appears. The camera emerges through enormous clouds, revealing a spectacular world of floating islands, waterfalls and ancient ruins.\n\n4\u20138 seconds:\nFly dramatically through the magical environment. Reveal glowing crystals, mysterious bridges, waterfalls falling into the clouds and an enormous ancient portal in the distance.\n\n8\u201312 seconds:\nThe camera approaches the portal. Magical energy begins to awaken the island. Golden particles and blue energy illuminate the environment.\n\n12\u201315 seconds:\nA spectacular wide shot reveals the entire lost island. A mysterious small creature silhouette appears on a cliff, looking toward the glowing portal.\n\nVISUAL STYLE:\nPremium stylized 3D animated fantasy game.\nExceptional environmental detail.\nBeautiful cinematic lighting.\nRich turquoise, emerald green, gold and deep blue colors.\nEpic scale, magical atmosphere and smooth camera movement.\n\nAUDIO:\nEpic orchestral fantasy music, deep cinematic impact and magical sparkling sound effects.\n\nNo text, subtitles, logos or watermarks.",
+      "submittedAt": "2026-11-09T12:35:25.824632+00:00",
+      "completedAt": "2026-11-09T12:36:50.496423+00:00",
+      "verifiedAt": "2026-11-09T12:36:50.497313+00:00",
+      "bytes": 9463439,
+      "error": null
+    },
+    "stage2": {
+      "id": "stage2",
+      "stageNumber": 2,
+      "title": "VIDEO 2 \u2014 MEET THE HERO",
+      "revealTitle": "MEET YOUR NEW HERO",
+      "revealSubtitle": "An original character. A magical world. Endless possibilities.",
+      "filename": "public/videos/stage2-meet-the-hero.mp4",
+      "model": "models/gemini-omni-1.2-flash",
+      "status": "Verified",
+      "statusHistory": [
+        {
+          "status": "Pending",
+          "timestamp": "2026-11-09T12:35:25.794764+00:00"
+        },
+        {
+          "status": "Generating",
+          "timestamp": "2026-11-09T12:35:25.824756+00:00"
+        },
+        {
+          "status": "Completed",
+          "timestamp": "2026-11-09T12:36:47.150475+00:00"
+        },
+        {
+          "status": "Verified",
+          "timestamp": "2026-11-09T12:36:47.151531+00:00"
+        }
+      ],
+      "referenceImages": [
+        "public/assets/character/character_canonical.png",
+        "public/assets/environment/environment_concept.png",
+        "public/assets/items/game_asset_sheet.png"
+      ],
+      "prompt": "Create a spectacular animated character and world reveal for MONSTER RUSH: THE LOST ISLAND.\n\nUse the supplied character and environment images as strict visual references.\n\nThe main character is an adorable turquoise-blue fantasy monster with large expressive amber eyes, tiny golden horns, a soft rounded body and glowing markings.\n\nPreserve its exact appearance, proportions and distinctive details.\n\nSTORYBOARD:\n\n0\u20134 seconds:\nThe camera travels through a beautiful floating island environment. A magical glowing crystal floats in the air. The camera turns toward a mysterious movement behind a rock.\n\n4\u20137 seconds:\nOur adorable turquoise monster hero suddenly jumps into the scene. The character lands, looks directly at the camera and smiles.\n\n7\u201311 seconds:\nThe monster runs through the environment. Golden coins spin in the air. Glowing blue energy gems appear. The monster jumps and collects a crystal, creating a beautiful magical energy burst.\n\n11\u201315 seconds:\nThe monster reaches an ancient treasure chest. The chest opens and releases spectacular golden light. The camera circles the character as the island lights up.\n\nVISUAL STYLE:\nPremium stylized 3D mobile game animation.\nHigh-end character animation.\nBeautiful materials and textures.\nRich environmental detail.\nSmooth cinematic camera movement.\nVibrant colors and magical particles.\n\nCHARACTER CONSISTENCY IS CRITICAL.\nDo not redesign the character.\nDo not distort its face or proportions.\n\nAUDIO:\nPlayful orchestral adventure music, cute character sound effects, magical crystal collection sounds and a satisfying treasure reveal.\n\nNo text, subtitles, logos or watermarks.",
+      "submittedAt": "2026-11-09T12:35:25.824750+00:00",
+      "completedAt": "2026-11-09T12:36:47.150456+00:00",
+      "verifiedAt": "2026-11-09T12:36:47.151523+00:00",
+      "bytes": 9994793,
+      "error": null
+    },
+    "stage3": {
+      "id": "stage3",
+      "stageNumber": 3,
+      "title": "VIDEO 3 \u2014 OFFICIAL GAME LAUNCH TRAILER",
+      "revealTitle": "YOUR GAME IS ALIVE",
+      "revealSubtitle": "From an idea to a playable experience.",
+      "filename": "public/videos/stage3-launch-trailer.mp4",
+      "model": "models/gemini-omni-1.2-flash",
+      "status": "Verified",
+      "statusHistory": [
+        {
+          "status": "Pending",
+          "timestamp": "2026-11-09T12:35:25.794765+00:00"
+        },
+        {
+          "status": "Generating",
+          "timestamp": "2026-11-09T12:35:25.824864+00:00"
+        },
+        {
+          "status": "Completed",
+          "timestamp": "2026-11-09T12:36:39.003527+00:00"
+        },
+        {
+          "status": "Verified",
+          "timestamp": "2026-11-09T12:36:39.005149+00:00"
+        }
+      ],
+      "referenceImages": [
+        "public/assets/character/character_canonical.png",
+        "public/assets/environment/environment_concept.png",
+        "public/assets/ui/gameplay_reference.png"
+      ],
+      "prompt": "Create a premium, high-impact cinematic launch trailer for an original mobile game:\n\nMONSTER RUSH: THE LOST ISLAND.\n\nThis should feel like the official launch trailer of a successful global mobile gaming franchise.\n\nUse the uploaded character and environment images as strict visual references. Preserve the character's exact appearance throughout the entire video.\n\nSTORYBOARD:\n\n0\u20133 seconds \u2014 THE HOOK:\nA dramatic aerial camera shot reveals an enormous magical floating island. A powerful magical portal suddenly activates. The camera rapidly dives toward the island.\n\n3\u20136 seconds \u2014 THE HERO:\nReveal our adorable turquoise monster hero. The character looks determined and ready for adventure. The camera moves close to its expressive face.\n\n6\u201310 seconds \u2014 THE ACTION:\nThe monster runs through a magical environment. It jumps across floating platforms, collects glowing gems and golden coins, and narrowly avoids a huge rolling stone obstacle.\n\n10\u201313 seconds \u2014 THE BIG MOMENT:\nThe monster jumps toward a massive glowing energy crystal. The crystal explodes into beautiful magical light. The entire island begins to glow.\n\n13\u201315 seconds \u2014 THE FINAL REVEAL:\nA spectacular cinematic pullback shows the monster standing heroically in front of the restored magical portal.\n\nVISUAL DIRECTION:\nPremium stylized 3D mobile game.\nExceptional visual polish.\nBeautiful cinematic lighting.\nRich colors and high-quality materials.\nDynamic camera movement.\nFluid character animation.\nSpectacular magical visual effects.\n\nAUDIO:\nEpic energetic orchestral game trailer music, powerful cinematic impacts, exciting movement and collection sound effects, memorable final musical hit.\n\nNo text, titles, subtitles, logos or watermarks.",
+      "submittedAt": "2026-11-09T12:35:25.824858+00:00",
+      "completedAt": "2026-11-09T12:36:39.003460+00:00",
+      "verifiedAt": "2026-11-09T12:36:39.005139+00:00",
+      "bytes": 9626576,
+      "error": null
+    }
+  }
+}

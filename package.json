@@ -1,0 +1,10 @@
+{
+  "name": "monster-rush-the-lost-island",
+  "version": "1.0.0",
+  "description": "Monster Rush: The Lost Island - 3-Lane Arcade Runner with Generated 3D Visual Assets and 15s Cinematic Trailer",
+  "type": "module",
+  "scripts": {
+    "start": "python3 -m http.server 8080 --bind 127.0.0.1",
+    "test": "node --test tests/game.test.mjs"
+  }
+}

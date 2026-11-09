@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta
+    http-equiv="Content-Security-Policy"
+    content="default-src 'self'; img-src 'self' data: blob:; media-src 'self' data: blob:; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self'; connect-src 'self';"
+  />
+  <title>Monster Rush: The Lost Island</title>
+  <link rel="icon" type="image/png" href="public/assets/hero_sprite.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700;800&family=Nunito:wght@600;700;800&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <div id="game-stage" class="game-stage">
+      <!-- High-DPI 60fps HTML5 Game Canvas -->
+      <canvas id="game-canvas" width="540" height="960" aria-label="Monster Rush: The Lost Island Game Canvas"></canvas>
+
+      <!-- 0. Opening Cinematic Trailer Overlay -->
+      <section id="screen-intro" class="screen-overlay intro-screen" aria-label="Official Launch Trailer">
+        <header class="intro-header">
+          <span class="pill-badge">Official 15s AI Launch Trailer</span>
+          <h1 class="game-logo-title">MONSTER RUSH</h1>
+          <p class="game-logo-subtitle">The Lost Island</p>
+        </header>
+
+        <div class="trailer-frame">
+          <video
+            id="trailer-video"
+            src="public/assets/monster_rush_trailer.mp4"
+            poster="public/assets/environment_concept.png"
+            playsinline
+            autoplay
+            muted
+            preload="auto"
+          ></video>
+          <div class="trailer-progress-track" aria-hidden="true">
+            <div id="trailer-progress-fill" class="trailer-progress-fill"></div>
+          </div>
+        </div>
+
+        <p class="intro-caption">
+          Soar across the ancient floating island with Bramble, gather glowing energy gems, and awaken the Lost Portal!
+        </p>
+
+        <div class="action-stack">
+          <button id="btn-intro-start-now" type="button" class="btn-arcade btn-primary">
+            Play Game Now
+          </button>
+          <div class="action-row">
+            <button id="btn-intro-mute" type="button" class="btn-arcade btn-secondary">
+              Unmute Trailer Audio
+            </button>
+            <button id="btn-intro-play" type="button" class="btn-arcade btn-ghost">
+              Skip to Title Screen
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 1. Animated Start Screen -->
+      <section id="screen-start" class="screen-overlay hidden" aria-label="Start Screen">
+        <header class="intro-header">
+          <span id="asset-load-status" class="pill-badge">Loading Island Assets...</span>
+          <h2 class="game-logo-title">MONSTER RUSH</h2>
+          <p class="game-logo-subtitle">The Lost Island</p>
+        </header>
+
+        <div class="start-hero-card">
+          <div class="hero-showcase-wrap">
+            <img
+              src="public/assets/hero_sprite.png"
+              alt="Bramble the Turquoise Monster Hero"
+              class="hero-showcase-img"
+              width="328"
+              height="366"
+              fetchpriority="high"
+            />
+          </div>
+          <div class="start-stats-row">
+            <div class="stat-chip">
+              <span class="stat-chip-label">Best Score</span>
+              <span id="start-highscore" class="stat-chip-value">0</span>
+            </div>
+            <div class="stat-chip">
+              <span class="stat-chip-label">Portal Goal</span>
+              <span class="stat-chip-value">12 Gems</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="controls-hint-bar">
+          <strong>Desktop:</strong> A/D or Arrows to Switch Lanes &bull; W/Space to Jump &bull; S/Shift to Spin-Dash<br />
+          <strong>Mobile:</strong> Swipe or Tap On-Screen Arcade Controls
+        </div>
+
+        <div class="action-stack">
+          <button id="btn-start-play" type="button" class="btn-arcade btn-primary">
+            Start Island Run
+          </button>
+          <div class="action-row">
+            <button id="btn-replay-trailer" type="button" class="btn-arcade btn-secondary">
+              Watch Official Trailer
+            </button>
+            <button id="btn-open-guide" type="button" class="btn-arcade btn-ghost">
+              How to Play &amp; Assets
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. Main Gameplay HUD & Responsive Touch Controls -->
+      <section id="game-hud" class="game-hud hidden" aria-label="Gameplay HUD">
+        <div class="hud-top">
+          <div class="hud-row-main">
+            <div class="hud-pill" title="Score & Combo">
+              <span id="hud-stage" class="hud-combo">STAGE 1</span>
+              <span id="hud-score" class="hud-val">0</span>
+              <span id="hud-combo-badge" class="hud-combo">x1</span>
+            </div>
+
+            <div class="hud-pill" title="Golden Coins Collected">
+              <img src="public/assets/coin_sprite.png" alt="Coins" class="hud-icon" width="22" height="22" />
+              <span id="hud-coins" class="hud-val">0</span>
+            </div>
+
+            <div class="hud-pill" title="Glowing Energy Gems Collected">
+              <img src="public/assets/gem_sprite.png" alt="Energy Gems" class="hud-icon" width="22" height="22" />
+              <span id="hud-gems" class="hud-val">0</span>
+            </div>
+
+            <div class="hud-controls-mini">
+              <button id="btn-hud-mute" type="button" class="btn-hud-mini" aria-label="Toggle Audio">
+                Audio
+              </button>
+              <button id="btn-hud-pause" type="button" class="btn-hud-mini" aria-label="Pause Game">
+                Pause
+              </button>
+            </div>
+          </div>
+
+          <div class="hud-row-sub">
+            <div class="hearts-bar" aria-label="Monster Lives">
+              <img id="heart-0" src="public/assets/heart_sprite.png" alt="Life 1" class="heart-icon" width="22" height="20" />
+              <img id="heart-1" src="public/assets/heart_sprite.png" alt="Life 2" class="heart-icon" width="22" height="20" />
+              <img id="heart-2" src="public/assets/heart_sprite.png" alt="Life 3" class="heart-icon" width="22" height="20" />
+              <img id="heart-3" src="public/assets/heart_sprite.png" alt="Life 4" class="heart-icon heart-lost" width="22" height="20" />
+            </div>
+
+            <div class="portal-meter">
+              <div class="portal-meter-header">
+                <span id="hud-portal-label">PORTAL CHARGE: 0 / 12 GEMS</span>
+              </div>
+              <div class="portal-track">
+                <div id="hud-portal-fill" class="portal-fill"></div>
+              </div>
+            </div>
+          </div>
+
+          <div id="hud-powerup-banner" class="powerup-banner hidden">STAR SHIELD ACTIVE</div>
+        </div>
+
+        <div class="touch-controls-bar" aria-label="Touch Controls">
+          <button id="touch-left" type="button" class="btn-touch" aria-label="Move Left Lane">
+            &larr; Left
+          </button>
+          <button id="touch-jump" type="button" class="btn-touch btn-touch-accent" aria-label="Jump">
+            &uarr; Jump
+          </button>
+          <button id="touch-dash" type="button" class="btn-touch btn-touch-accent" aria-label="Spin Dash">
+            Dash
+          </button>
+          <button id="touch-right" type="button" class="btn-touch" aria-label="Move Right Lane">
+            Right &rarr;
+          </button>
+        </div>
+      </section>
+
+      <!-- 3. Pause Screen -->
+      <section id="screen-pause" class="screen-overlay hidden" aria-label="Pause Screen">
+        <div class="modal-card">
+          <span class="pill-badge">Game Paused</span>
+          <h2 class="modal-title">ISLAND REST</h2>
+          <p class="modal-subtitle">Catch your breath before racing back toward the ancient portal!</p>
+          <div class="action-stack">
+            <button id="btn-pause-resume" type="button" class="btn-arcade btn-primary">
+              Resume Run
+            </button>
+            <button id="btn-pause-restart" type="button" class="btn-arcade btn-secondary">
+              Restart Stage
+            </button>
+            <div class="action-row">
+              <button id="btn-pause-trailer" type="button" class="btn-arcade btn-ghost">
+                Watch Trailer
+              </button>
+              <button id="btn-pause-menu" type="button" class="btn-arcade btn-ghost">
+                Title Screen
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. Game-Over Screen -->
+      <section id="screen-gameover" class="screen-overlay hidden" aria-label="Game Over Screen">
+        <div class="modal-card">
+          <img
+            src="public/assets/stone_sprite.png"
+            alt="Ancient Rune Stone Obstacle"
+            class="modal-emblem"
+            width="92"
+            height="92"
+            fetchpriority="low"
+          />
+          <span class="pill-badge">Run Ended</span>
+          <h2 class="modal-title">OUT OF HEARTS!</h2>
+          <p class="modal-subtitle">The island guardians stopped your rush&mdash;jump over traps or Spin-Dash to smash blocks!</p>
+
+          <div class="summary-grid">
+            <div class="stat-chip">
+              <span class="stat-chip-label">Final Score</span>
+              <span id="go-score" class="stat-chip-value">0</span>
+            </div>
+            <div class="stat-chip">
+              <span class="stat-chip-label">Best Score</span>
+              <span id="go-best" class="stat-chip-value">0</span>
+            </div>
+            <div class="stat-chip">
+              <span class="stat-chip-label">Coins</span>
+              <span id="go-coins" class="stat-chip-value">0</span>
+            </div>
+            <div class="stat-chip">
+              <span class="stat-chip-label">Portal Gems</span>
+              <span id="go-gems" class="stat-chip-value">0 / 12</span>
+            </div>
+          </div>
+
+          <div class="action-stack">
+            <button id="btn-gameover-restart" type="button" class="btn-arcade btn-primary">
+              Try Again
+            </button>
+            <button id="btn-gameover-menu" type="button" class="btn-arcade btn-ghost">
+              Back to Title Screen
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. Stage Complete Celebratory Video Overlay (Plays immediately upon finishing Stage 1 / Stage 2 before Move to Next Stage screen) -->
+      <section id="screen-stage-video" class="screen-overlay intro-screen hidden" aria-label="Stage Complete Celebration Video">
+        <header class="intro-header">
+          <span id="stage-video-badge" class="pill-badge">STAGE 1 COMPLETE!</span>
+          <h2 id="stage-video-title" class="game-logo-title">GREAT JOB!</h2>
+          <p id="stage-video-subtitle" class="game-logo-subtitle">You Conquered Island Stage 1!</p>
+        </header>
+
+        <div class="trailer-frame">
+          <video
+            id="stage-clear-video"
+            src="public/videos/stage1-complete.mp4"
+            poster="public/assets/ui/portal_awakened_reference.png"
+            playsinline
+            preload="auto"
+          ></video>
+          <div class="trailer-progress-track" aria-hidden="true">
+            <div id="stage-video-progress-fill" class="trailer-progress-fill"></div>
+          </div>
+        </div>
+
+        <p id="stage-video-caption" class="intro-caption">
+          Great job! Bramble awakened the ancient portal and cleared Stage 1. Ready for Stage 2?
+        </p>
+
+        <div class="action-stack">
+          <button id="btn-stage-video-continue" type="button" class="btn-arcade btn-primary">
+            Continue to Stage 2 &rarr;
+          </button>
+          <div class="action-row">
+            <button id="btn-stage-video-replay" type="button" class="btn-arcade btn-secondary">
+              Replay Video
+            </button>
+            <button id="btn-stage-video-mute" type="button" class="btn-arcade btn-ghost">
+              Mute Audio
+            </button>
+            <button id="btn-stage-video-summary" type="button" class="btn-arcade btn-ghost">
+              Stage Summary
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. Victory / Move to Next Stage Screen -->
+      <section id="screen-victory" class="screen-overlay hidden" aria-label="Victory Screen">
+        <div class="modal-card">
+          <img
+            src="public/assets/portal_sprite.png"
+            alt="Awakened Ancient Magical Portal"
+            class="modal-emblem"
+            width="96"
+            height="96"
+            fetchpriority="low"
+          />
+          <span id="vic-stage-badge" class="pill-badge">Stage 1 Complete &bull; Portal Awakened</span>
+          <h2 id="vic-title" class="modal-title">GREAT JOB!</h2>
+          <p id="vic-subtitle" class="modal-subtitle">Bramble charged the ancient portal and unlocked the next floating island stage!</p>
+
+          <div class="summary-grid">
+            <div class="stat-chip">
+              <span class="stat-chip-label">Total Score</span>
+              <span id="vic-score" class="stat-chip-value">0</span>
+            </div>
+            <div class="stat-chip">
+              <span class="stat-chip-label">Best Score</span>
+              <span id="vic-best" class="stat-chip-value">0</span>
+            </div>
+            <div class="stat-chip">
+              <span class="stat-chip-label">Coins Gathered</span>
+              <span id="vic-coins" class="stat-chip-value">0</span>
+            </div>
+            <div class="stat-chip">
+              <span class="stat-chip-label">Gems &amp; Bonus</span>
+              <span id="vic-gems" class="stat-chip-value">0</span>
+              <span id="vic-bonus" class="stat-chip-label">+1000</span>
+            </div>
+          </div>
+
+          <div class="action-stack">
+            <button id="btn-victory-next" type="button" class="btn-arcade btn-primary">
+              Enter Island Stage 2
+            </button>
+            <div class="action-row">
+              <button id="btn-victory-watch-clear-video" type="button" class="btn-arcade btn-secondary">
+                Replay Stage Video
+              </button>
+              <button id="btn-victory-replay-game" type="button" class="btn-arcade btn-ghost">
+                Replay Stage 1
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Native Light-Dismissible Guide & Asset Showcase Dialog -->
+    <dialog id="guide-dialog" class="island-dialog" closedby="any" aria-labelledby="guide-title">
+      <h3 id="guide-title" class="modal-title">ISLAND EXPLORER GUIDE</h3>
+      <h4 class="dialog-section-title">How to Awaken the Lost Portal</h4>
+      <ul class="dialog-list">
+        <li>&bull; <strong>Switch Lanes:</strong> Press <strong>Left/Right</strong> (or <strong>A/D</strong>, or swipe) to steer Bramble across the 3 floating island lanes.</li>
+        <li>&bull; <strong>Jump Over Traps:</strong> Press <strong>Up / W / Space</strong> to leap over spinning wooden spike traps and grab high-altitude gems.</li>
+        <li>&bull; <strong>Spin-Dash Smash:</strong> Press <strong>Down / S / Shift</strong> to smash right through mossy stone blocks and pull in nearby gems!</li>
+        <li>&bull; <strong>Awaken the Portal:</strong> Collect <strong>12 Glowing Blue Energy Gems</strong> to light up the Ancient Magical Portal at the end of the runway!</li>
+      </ul>
+
+      <h4 class="dialog-section-title">Official Generated 3D Island Assets</h4>
+      <img
+        src="public/assets/game_asset_sheet.png"
+        alt="Monster Rush 3D Collectibles, Obstacles, and Portal Sheet"
+        class="asset-preview-sheet"
+        width="420"
+        height="236"
+        fetchpriority="low"
+      />
+
+      <div class="action-stack dialog-footer-actions">
+        <button id="btn-close-guide" type="button" class="btn-arcade btn-primary">
+          Got It &mdash; Let's Run!
+        </button>
+      </div>
+    </dialog>
+  </main>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
