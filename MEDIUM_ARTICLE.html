@@ -27,7 +27,7 @@
       -webkit-font-smoothing: antialiased;
     }
     .article-container {
-      max-width: 780px;
+      max-width: 800px;
       margin: 0 auto;
       padding: 56px 24px 96px;
     }
@@ -57,7 +57,7 @@
     }
     .subtitle {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      font-size: 22px;
+      font-size: 21px;
       line-height: 1.45;
       color: var(--text-muted);
       margin: 0 0 24px;
@@ -93,7 +93,7 @@
       font-size: 30px;
       font-weight: 800;
       line-height: 1.25;
-      margin: 52px 0 18px;
+      margin: 56px 0 18px;
       color: #111827;
     }
     h3 {
@@ -101,7 +101,7 @@
       font-size: 23px;
       font-weight: 700;
       line-height: 1.3;
-      margin: 36px 0 14px;
+      margin: 38px 0 14px;
       color: #1e293b;
     }
     p {
@@ -115,12 +115,43 @@
       margin-bottom: 10px;
     }
     blockquote {
-      margin: 32px 0;
+      margin: 28px 0;
       padding: 16px 24px;
       border-left: 4px solid var(--accent-blue);
       background: var(--bg-subtle);
       font-style: italic;
       border-radius: 0 12px 12px 0;
+    }
+    .prompt-card {
+      margin: 28px 0 36px;
+      border: 1px solid #cbd5e1;
+      border-radius: 14px;
+      overflow: hidden;
+      background: #0f172a;
+      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
+    }
+    .prompt-card-header {
+      background: #1e293b;
+      color: #38bdf8;
+      padding: 10px 18px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border-bottom: 1px solid #334155;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .prompt-card pre {
+      margin: 0;
+      border-radius: 0;
+      background: #0f172a;
+      color: #e2e8f0;
+      padding: 20px 22px;
+      white-space: pre-wrap;
+      word-break: break-word;
     }
     figure {
       margin: 36px 0;
@@ -215,7 +246,7 @@
       <span class="kicker">Developer Engineering Guide &bull; Google Antigravity (AGY)</span>
       <h1>From One Prompt to a 60fps Mobile Game: How to Build AI-Native Games with Google Antigravity, Subagents, Plugins, and Gemini Omni 1.2 Flash</h1>
       <p class="subtitle">
-        A complete developer's blueprint for orchestrating specialized AI subagents, zero-GC HTML5 game engines, Nano Banana asset pipelines, and parallel Gemini Omni 1.2 Flash cutscenes—deployed live to Google Cloud Run.
+        A complete step-by-step developer's blueprint—including the exact prompts, plugin setup (<code>game-dev</code> &amp; <code>game-architect</code>), Nano Banana asset workflows, and parallel Gemini Omni 1.2 Flash video generation—deployed live to Google Cloud Run.
       </p>
       <div class="resource-bar">
         <a class="btn-link btn-primary" href="https://monster-rush-lost-island-880601596687.us-central1.run.app" target="_blank" rel="noopener">
@@ -245,7 +276,7 @@
       <li><strong>Automated QA &amp; Cloud Deployment:</strong> Unit tests, headless browser end-to-end verification, and containerized deployment to production.</li>
     </ol>
     <p>
-      In this article, we walk through how we built <strong>Monster Rush: The Lost Island</strong>—a 60fps 3-lane fantasy island runner—entirely inside <strong>Google Antigravity (AGY)</strong> using its modular ecosystem of <strong>Plugins</strong>, <strong>Skills (<code>SKILL.md</code>)</strong>, <strong>Rules (<code>AGENTS.md</code>)</strong>, <strong>Subagents</strong>, and <strong>Gemini Omni 1.2 Flash (<code>models/gemini-omni-1.2-flash</code>)</strong>.
+      In this guide, we share the <strong>exact step-by-step setup and prompts</strong> we gave to <strong>Google Antigravity (AGY)</strong> to build <strong>Monster Rush: The Lost Island</strong>—showing how to install the <strong><code>game-dev</code> plugin</strong>, enable the <strong><code>game-architect</code></strong> and <strong><code>image-generator</code> (Nano Banana)</strong> subagents, and generate parallel in-game video cutscenes with <strong>Gemini Omni 1.2 Flash (<code>models/gemini-omni-1.2-flash</code>)</strong>.
     </p>
 
     <h2>1. Watch the Gemini Omni 1.2 Flash Videos &amp; Stage-Completion Cutscenes</h2>
@@ -269,15 +300,35 @@
       </figure>
     </div>
 
-    <h2>2. How Google Antigravity Orchestrates Game Creation</h2>
+    <h2>2. Setting Up Google Antigravity: Plugins, Agents, and Multimodal Models</h2>
     <p>
-      What makes <strong>Google Antigravity</strong> fundamentally different from a standard coding assistant is its <strong>composable customization architecture</strong>. Instead of stuffing thousands of lines of instructions into a single prompt, Antigravity separates domain expertise into four distinct layers:
+      Before writing our first game design prompt, we configured our <strong>Google Antigravity</strong> environment with the specialized plugins and subagents needed for a 60fps game studio pipeline:
+    </p>
+
+    <h3>Step 0.1 — Installing &amp; Enabling the <code>game-dev</code> Plugin (<code>/plugin</code>)</h3>
+    <p>
+      First, we asked Antigravity to install and enable the <strong><code>game-dev</code> plugin</strong> (<code>~/.gemini/config/plugins/game-dev</code>) using the <code>/plugin</code> workflow:
+    </p>
+    <blockquote>
+      <strong>Setup Prompt to Antigravity:</strong><br />
+      "Install and enable the <code>game-dev</code> plugin, including the <code>game-architect</code> agent, the <code>AGENTS.md</code> zero-GC / 60fps game development rules, and the HTML5 game engine, arcade physics, and procedural Web Audio synthesizer skills."
+    </blockquote>
+    <p>
+      Enabling the <strong><code>game-dev</code> plugin</strong> automatically equips Antigravity with:
     </p>
     <ul>
-      <li><strong>1. Rules &amp; Plugins Layer (<code>AGENTS.md</code>):</strong> Always-on architectural guardrails such as the <code>game-dev</code> plugin rules enforcing Zero-GC <code>ObjectPool</code> usage, High-DPI <code>devicePixelRatio</code> scaling, Web Audio gesture compliance, and clean separation of simulation state from rendering.</li>
-      <li><strong>2. Domain Skills Layer (<code>SKILL.md</code>):</strong> On-demand engineering blueprints loaded by the agent (<code>html5-game-engine</code>, <code>arcade-physics-and-grid-mechanics</code>, <code>game-audio-synthesizer</code>, <code>modern-web-guidance</code>, <code>mandatory-secure-web-skills</code>).</li>
-      <li><strong>3. Autonomous Subagents &amp; Multimodal Models:</strong> Delegating specialized visual asset generation to the <code>image-generator</code> subagent (powered by <strong>Nano Banana</strong>) and parallel video generation to <strong>Gemini Omni 1.2 Flash (<code>models/gemini-omni-1.2-flash</code>)</strong>.</li>
-      <li><strong>4. Verification &amp; Cloud Deployment Layer:</strong> Automated <code>node --test</code> unit suites, headless Chrome DevTools Protocol (CDP) E2E testing, and one-command deployment to <strong>Google Cloud Run</strong>.</li>
+      <li><strong>The <code>game-architect</code> Subagent:</strong> An expert Game Architect agent specializing in game mechanics, mathematical balancing, difficulty curves, 60fps canvas performance, and multi-sensory game feel.</li>
+      <li><strong>Always-On Game Engineering Rules (<code>game-dev/rules/AGENTS.md</code>):</strong> Enforces Zero Garbage-Collection in game loops (<code>ObjectPool</code> reuse), High-DPI <code>window.devicePixelRatio</code> scaling, Web Audio gesture compliance, procedural audio synthesis, and clean separation of simulation state from rendering.</li>
+      <li><strong>Three Specialized Game Skills (<code>SKILL.md</code>):</strong> <code>html5-game-engine</code>, <code>arcade-physics-and-grid-mechanics</code>, and <code>game-audio-synthesizer</code>.</li>
+    </ul>
+
+    <h3>Step 0.2 — Enabling the <code>image-generator</code> Subagent (Nano Banana) &amp; Gemini Omni 1.2 Flash</h3>
+    <p>
+      Alongside the <code>game-dev</code> plugin, our workflow uses two multimodal engines:
+    </p>
+    <ul>
+      <li><strong><code>image-generator</code> Subagent (powered by Nano Banana):</strong> Generates the canonical 3D character sheet (<strong>Bramble</strong>), 4-panel expression poses, floating island environment backdrop, and 3D sprite sheet.</li>
+      <li><strong>Gemini Omni 1.2 Flash (<code>models/gemini-omni-1.2-flash</code>):</strong> Generates the 15-second 16:9 launch trailer and the voice-acted Stage 1 &amp; Stage 2 completion cutscenes in parallel, anchored to the Nano Banana reference images.</li>
     </ul>
 
     <table>
@@ -293,6 +344,11 @@
           <td><strong><code>game-dev</code> (<code>AGENTS.md</code>)</strong></td>
           <td>Plugin Rule</td>
           <td>Enforces zero heap allocations inside <code>update()</code>/<code>render()</code>, High-DPI <code>devicePixelRatio</code> normalization, procedural Web Audio, and multi-sensory "juice".</td>
+        </tr>
+        <tr>
+          <td><strong><code>game-architect</code></strong></td>
+          <td>Subagent</td>
+          <td>Designs the core 3-lane loop, speed progression curve, scoring multipliers, and portal awakening mechanics.</td>
         </tr>
         <tr>
           <td><strong><code>html5-game-engine</code></strong></td>
@@ -327,12 +383,89 @@
       </tbody>
     </table>
 
-    <h2>3. Step-by-Step Build Walkthrough</h2>
-
-    <h3>Step 1: Establishing Visual Identity with the <code>image-generator</code> Subagent (Nano Banana)</h3>
+    <h2>3. The Complete Prompt Playbook: Step-by-Step Prompts Given to Antigravity</h2>
     <p>
-      A common pitfall in AI-generated games is <strong>visual drift</strong>—where the main character looks different on the title screen, inside gameplay, and inside video cutscenes. To solve this, the Lead Agent invoked Antigravity's <strong><code>image-generator</code></strong> subagent first to create a <strong>Canonical Character Sheet</strong> for our hero, <strong>Bramble</strong>, alongside the <strong>Floating Island Environment</strong> and a <strong>Master 3D Game Asset Sheet</strong>.
+      Below are the exact instructions and prompts we gave to <strong>Google Antigravity</strong> to build <em>Monster Rush: The Lost Island</em> step by step. Developers can copy and adapt this exact sequence for any game genre.
     </p>
+
+    <h3>Prompt 1 — Architecture &amp; Game Design Blueprint (Planning Before Coding)</h3>
+    <p>
+      Instead of asking the AI to write code immediately, our first prompt instructed Antigravity (guided by the <code>game-architect</code> agent and <code>game-dev</code> rules) to design the complete game concept, core loop, visual asset manifest, and technical architecture first—and wait for approval:
+    </p>
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span>Prompt 1 &bull; Game Concept &amp; Technical Architecture</span>
+        <span>Target: Antigravity + game-architect</span>
+      </div>
+      <pre><code>You are a senior game development team working on a premium-quality
+casual mobile game prototype.
+
+We are creating an original game called:
+MONSTER RUSH: THE LOST ISLAND.
+
+GAME CONCEPT:
+A cute, brave little monster explores a magical floating island.
+The player collects energy gems, avoids obstacles, discovers treasure,
+and restores the island's magical portal.
+
+TARGET EXPERIENCE:
+A polished, highly visual casual arcade game suitable for a mobile
+gaming audience.
+
+YOUR TASK:
+1. Design the complete game concept.
+2. Define the core gameplay loop.
+3. Design the main character and game world.
+4. Define the screens, UI, scoring and progression.
+5. Create a technical architecture for a playable browser-based prototype.
+6. Define all visual assets we need to generate.
+7. Create a step-by-step implementation plan.
+
+IMPORTANT:
+Do not start coding yet.
+Do not use copyrighted characters or existing game IP.
+The visual identity must be completely original.
+Present the plan and wait for approval.</code></pre>
+    </div>
+
+    <h3>Prompt 2 — Generating the Canonical Character, Environment &amp; Sprite Sheets with Nano Banana (<code>image-generator</code>)</h3>
+    <p>
+      Once the architecture plan was approved, we gave Antigravity a 3-part visual prompt so the <strong><code>image-generator</code> subagent (Nano Banana)</strong> would establish a <strong>canonical character design</strong> first and preserve that exact visual identity across the environment and game item sheets:
+    </p>
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span>Prompt 2 &bull; Canonical Character, Environment &amp; Sprite Sheet Generation</span>
+        <span>Target: Nano Banana (image-generator Subagent)</span>
+      </div>
+      <pre><code>Use Nano Banana (the image-generator subagent) to create our visual assets:
+
+1. CANONICAL CHARACTER:
+Create an original premium mobile game character for MONSTER RUSH: THE LOST ISLAND.
+Character: A small adorable turquoise-blue fantasy monster. Large expressive amber eyes,
+tiny golden horns, soft rounded body, short legs, small glowing markings, and a confident
+friendly smile.
+Style: High-end stylized 3D animated game art, soft cinematic lighting.
+Composition: Full body, centered, three-quarter view, clean simple background.
+This is the canonical character design. Preserve the exact same appearance in future assets.
+
+2. ENVIRONMENT CONCEPT ART:
+Create a premium game environment concept art for MONSTER RUSH: THE LOST ISLAND.
+A magical floating island in the sky with bright turquoise waterfalls, lush green platforms,
+ancient stone ruins, glowing magical crystals, floating bridges, and golden sunlight.
+Clear foreground, middle ground, and background. No characters, no text, no logos.
+
+3. CONSISTENT GAME ASSET SHEET:
+Create a consistent game asset sheet matching the exact visual style and lighting:
+- Golden collectible coins
+- Glowing blue energy gems
+- Magical treasure chest
+- Stone obstacle
+- Spinning wooden trap
+- Magical portal
+- Heart / life icon
+- Game power-up icons
+Arrange each asset separately with clear spacing and no overlapping assets.</code></pre>
+    </div>
 
     <div class="image-grid-2">
       <figure>
@@ -356,13 +489,107 @@
       </figure>
     </div>
 
-    <h3>Step 2: Parallel Video &amp; Stage-Clear Cutscene Generation with Gemini Omni 1.2 Flash</h3>
+    <h3>Prompt 3 — Creating &amp; Iteratively Refining the 15-Second Launch Trailer with Gemini Omni 1.2 Flash</h3>
     <p>
-      When the player completes <strong>Stage 1</strong> by collecting 12 glowing energy gems and leaping into the awakened portal, <strong>before</strong> seeing the "Move to Stage 2" summary screen, an in-game celebratory video (<code>stage1-complete.mp4</code>) immediately plays where Bramble waves at the camera and says: <em>"Great job! You completed Stage 1!"</em> Similarly, completing <strong>Stage 2</strong> triggers <code>stage2-complete.mp4</code>: <em>"Great job! You passed Stage 2! Let's go to Stage 3!"</em>
+      With the canonical character and environment images saved in <code>public/assets/</code>, we instructed Antigravity to use <strong>Gemini Omni 1.2 Flash (<code>models/gemini-omni-1.2-flash</code>)</strong> with those exact reference images to produce a 15-second 16:9 launch trailer, followed by an iterative refinement prompt for the final 3 seconds:
     </p>
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span>Prompt 3A &bull; 15-Second Cinematic Launch Trailer</span>
+        <span>Target: Gemini Omni 1.2 Flash (models/gemini-omni-1.2-flash)</span>
+      </div>
+      <pre><code>Use Gemini Omni 1.2 Flash (models/gemini-omni-1.2-flash) to create a spectacular
+15-second cinematic trailer for MONSTER RUSH: THE LOST ISLAND.
+
+Use the supplied character and environment images as visual references.
+Preserve the character's exact appearance, colors, proportions, and distinctive features.
+
+STORYBOARD:
+- Seconds 0-4: A breathtaking aerial cinematic flight over a magical floating island,
+  waterfalls, and ruins. The camera moves toward a glowing ancient portal.
+- Seconds 4-8: Reveal our cute turquoise monster hero. The monster looks toward the
+  camera, smiles, and prepares to run.
+- Seconds 8-12: The monster jumps across floating platforms, collects glowing energy
+  gems, and passes through magical golden particles.
+- Seconds 12-15: A dramatic camera pullback reveals the entire island as the magical
+  portal lights up. End on a memorable heroic pose.
+
+VISUAL DIRECTION &amp; AUDIO:
+Premium stylized 3D animated game trailer, vibrant colors, smooth camera movement,
+energetic orchestral fantasy game music, and magical sound effects.
+Format: 16:9 landscape, 15 seconds. Save to public/assets/monster_rush_trailer.mp4.</code></pre>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span>Prompt 3B &bull; Iterative Video Refinement Prompt</span>
+        <span>Target: Gemini Omni 1.2 Flash</span>
+      </div>
+      <pre><code>Keep the same character, environment, and visual style.
+Make the final 3 seconds more spectacular: increase the magical glow of the portal,
+add a beautiful energy burst, and finish with a stronger cinematic camera pullback.
+Preserve the rest of the video and save it in public/assets/.</code></pre>
+    </div>
+
+    <h3>Prompt 4 — Implementing the Complete 60fps Playable Game Engine</h3>
     <p>
-      Our Antigravity agent dispatched the <strong>Gemini Omni 1.2 Flash (<code>models/gemini-omni-1.2-flash</code>)</strong> requests concurrently in Python using <code>ThreadPoolExecutor</code>, passing both the storyboard prompt and the base64-encoded Nano Banana reference images:
+      Next, we instructed Antigravity to implement the complete playable HTML5 Canvas game from scratch using the generated assets in <code>public/assets/</code> and enforcing the <code>game-dev</code> plugin rules:
     </p>
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span>Prompt 4 &bull; Full 60fps Playable Game Implementation</span>
+        <span>Target: Antigravity + game-dev Plugin Skills</span>
+      </div>
+      <pre><code>Now implement MONSTER RUSH: THE LOST ISLAND from scratch, using the approved
+game design and the generated visual assets located in public/assets/.
+
+BUILD A COMPLETE PLAYABLE GAME:
+- Create a fun arcade-style 3-lane runner experience.
+- The player can move left/right between lanes, jump, and trigger a spin-dash.
+- Collect coins, glowing energy gems, and treasure chests.
+- Avoid stone obstacles and spinning wooden traps.
+- Add increasing speed and difficulty across stages.
+- Include score, lives, combo multipliers, and collectible counters.
+
+SCREENS:
+1. Intro screen with the integrated Gemini Omni 1.2 Flash cinematic trailer.
+2. Animated start screen with hero showcase.
+3. Main 60fps gameplay screen.
+4. Pause screen, Game-over screen, and Victory / Stage progression screens.
+
+VISUAL &amp; TECHNICAL QUALITY:
+- Use the generated Nano Banana character, environment, and item sprites.
+- Add particle bursts, floating score callouts, and camera shake feedback.
+- Synthesize all game audio procedurally using the Web Audio API skill.
+- Support both desktop keyboard (Arrows / WASD / Space) and mobile touch swipes.</code></pre>
+    </div>
+
+    <h3>Prompt 5 — Parallel Generation of Stage-Completion Cutscenes with Gemini Omni 1.2 Flash</h3>
+    <p>
+      When the player completes <strong>Stage 1</strong> or <strong>Stage 2</strong> by leaping into the awakened portal, we wanted a voice-acted celebratory video generated by <strong>Gemini Omni 1.2 Flash</strong> to play immediately before transitioning to the next stage:
+    </p>
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span>Prompt 5 &bull; Parallel Stage-Clear Cutscene Generation</span>
+        <span>Target: Gemini Omni 1.2 Flash (Parallel Execution)</span>
+      </div>
+      <pre><code>Use Gemini Omni 1.2 Flash (models/gemini-omni-1.2-flash) in parallel using our
+canonical Nano Banana character and environment reference images to generate
+celebratory stage-completion videos that play automatically at the end of
+Stage 1 and Stage 2 before moving to the next stage:
+
+1. public/videos/stage1-complete.mp4:
+   When finishing Stage 1, before moving to Stage 2, play a celebratory video
+   where our turquoise monster hero leaps out of the awakened portal, waves
+   happily at the player, and says enthusiastically:
+   "Great job! You completed Stage 1!"
+
+2. public/videos/stage2-complete.mp4:
+   When finishing Stage 2, before moving to Stage 3, play a celebratory video
+   with magical fireworks and an opening golden treasure chest where our hero
+   cheers:
+   "Great job! You passed Stage 2! Let's go to Stage 3!"</code></pre>
+    </div>
 
 <pre><code># Parallel Gemini Omni 1.2 Flash Video Generation with Reference Images
 payload = {
@@ -391,7 +618,24 @@ payload = {
       </figure>
     </div>
 
-    <h3>Step 3: Zero-GC Object Pooling &amp; 3-Lane Perspective Math</h3>
+    <h3>Prompt 6 — End-to-End Integration, Automated Browser QA &amp; Cloud Run Deployment</h3>
+    <div class="prompt-card">
+      <div class="prompt-card-header">
+        <span>Prompt 6 &bull; Automated E2E Testing &amp; Cloud Run Deployment</span>
+        <span>Target: Antigravity + Chrome DevTools + Cloud Run</span>
+      </div>
+      <pre><code>Complete, verify, and deploy the Monster Rush experience:
+1. Integrate the launch trailer and the Stage 1 / Stage 2 completion videos
+   into the game's screen flow.
+2. Verify all generated assets and videos load properly.
+3. Test keyboard and touch controls, gem collection, collisions, pause,
+   game-over, and stage transitions using unit tests and headless browser E2E tests.
+4. Deploy the game live to Google Cloud Run, serve this developer guide under /docs,
+   and push the complete repository to GitHub.
+Do not claim that something works unless it has actually been tested.</code></pre>
+    </div>
+
+    <h2>4. Deep Dive: Zero-GC Object Pooling &amp; 3-Lane Perspective Math</h2>
     <p>
       Guided by the <code>game-dev</code> plugin rules, <code>ObjectPool</code> pre-allocates fixed pools of entities (<code>80</code>), particles (<code>180</code>), and floating score callouts (<code>32</code>), recycling expired items in O(1) time via swap-and-pop so the garbage collector is never triggered during gameplay:
     </p>
@@ -401,13 +645,13 @@ payload = {
     this._factory = factoryFn;
     this._free = [];
     this.activeList = [];
-    for (let i = 0; i < initialSize; i++) {
+    for (let i = 0; i &lt; initialSize; i++) {
       this._free.push(this._factory());
     }
   }
 
   acquire() {
-    const item = this._free.length > 0 ? this._free.pop() : this._factory();
+    const item = this._free.length &gt; 0 ? this._free.pop() : this._factory();
     this.activeList.push(item);
     return item;
   }
@@ -434,7 +678,7 @@ payload = {
       </figure>
     </div>
 
-    <h2>4. Play the Live Game Right Here (Hosted on Google Cloud Run)</h2>
+    <h2>5. Play the Live Game Right Here (Hosted on Google Cloud Run)</h2>
     <div class="game-embed-box">
       <p style="margin-bottom: 16px; font-weight: 600;">
         Live Cloud Run Instance: <a href="https://monster-rush-lost-island-880601596687.us-central1.run.app" target="_blank" style="color: #38bdf8;">monster-rush-lost-island-880601596687.us-central1.run.app</a>
@@ -444,10 +688,11 @@ payload = {
 
     <h2>Conclusion: Key Takeaways for Developers Building Games with Antigravity</h2>
     <ol>
-      <li><strong>Use Rules (<code>AGENTS.md</code>) as Architectural Guardrails:</strong> Declaring zero-GC pooling and high-DPI coordinate normalization in a rule file ensures every line of generated engine code stays at 60fps.</li>
-      <li><strong>Anchor Multimodal Video Generation with Canonical Reference Images:</strong> Generating a canonical character sheet first with the <code>image-generator</code> subagent (Nano Banana) and passing it as an image reference to <code>models/gemini-omni-1.2-flash</code> solves character consistency across gameplay sprites, launch trailers, and stage-clear cutscenes.</li>
-      <li><strong>Run Video Jobs in Parallel:</strong> Dispatching all <code>models/gemini-omni-1.2-flash</code> video requests concurrently via <code>ThreadPoolExecutor</code> cuts media production latency by 3&times;.</li>
-      <li><strong>Close the Loop with Browser E2E Verification:</strong> Coupling <code>node --test</code> unit tests with headless Chrome CDP verification guarantees that assets, videos, audio synthesis, and UI overlays work together with zero runtime errors.</li>
+      <li><strong>Install Domain Plugins First (<code>game-dev</code> &amp; <code>game-architect</code>):</strong> Enabling the <code>game-dev</code> plugin gives Antigravity architectural guardrails (<code>AGENTS.md</code>) and specialized skills (<code>html5-game-engine</code>, <code>arcade-physics-and-grid-mechanics</code>, <code>game-audio-synthesizer</code>) before a single line of code is written.</li>
+      <li><strong>Design Before Coding (Prompt 1):</strong> Asking Antigravity to produce and validate the game design, state machine, and asset manifest first prevents architectural rework later.</li>
+      <li><strong>Anchor Multimodal Video Generation with Canonical Reference Images (Prompts 2 &amp; 3):</strong> Generating a canonical character sheet first with the <code>image-generator</code> subagent (Nano Banana) and passing it as an image reference to <code>models/gemini-omni-1.2-flash</code> solves character consistency across gameplay sprites, launch trailers, and stage-clear cutscenes.</li>
+      <li><strong>Run Video Jobs in Parallel (Prompt 5):</strong> Dispatching all <code>models/gemini-omni-1.2-flash</code> video requests concurrently via <code>ThreadPoolExecutor</code> cuts media production latency by 3&times;.</li>
+      <li><strong>Close the Loop with Browser E2E Verification (Prompt 6):</strong> Coupling <code>node --test</code> unit tests with headless Chrome CDP verification guarantees that assets, videos, audio synthesis, and UI overlays work together with zero runtime errors.</li>
     </ol>
   </article>
 </body>
