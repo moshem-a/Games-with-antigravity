@@ -23,13 +23,13 @@
 
 ## Gemini Omni 1.2 Flash Generated Videos
 
-| Video | Path | Live Cloud Run Stream |
-| :--- | :--- | :--- |
-| **Official 15s Launch Trailer** | [`public/assets/monster_rush_trailer.mp4`](./public/assets/monster_rush_trailer.mp4) | [Stream MP4](https://monster-rush-lost-island-880601596687.us-central1.run.app/public/assets/monster_rush_trailer.mp4) |
-| **Stage 1 Complete Cutscene** (*"Great job! You completed Stage 1!"*) | [`public/videos/stage1-complete.mp4`](./public/videos/stage1-complete.mp4) | [Stream MP4](https://monster-rush-lost-island-880601596687.us-central1.run.app/public/videos/stage1-complete.mp4) |
-| **Stage 2 Complete Cutscene** (*"Great job! You passed Stage 2! Let's go to Stage 3!"*) | [`public/videos/stage2-complete.mp4`](./public/videos/stage2-complete.mp4) | [Stream MP4](https://monster-rush-lost-island-880601596687.us-central1.run.app/public/videos/stage2-complete.mp4) |
-| **World Reveal Cinematic** | [`public/videos/stage1-world-reveal.mp4`](./public/videos/stage1-world-reveal.mp4) | [Stream MP4](https://monster-rush-lost-island-880601596687.us-central1.run.app/public/videos/stage1-world-reveal.mp4) |
-| **Meet the Hero Cinematic** | [`public/videos/stage2-meet-the-hero.mp4`](./public/videos/stage2-meet-the-hero.mp4) | [Stream MP4](https://monster-rush-lost-island-880601596687.us-central1.run.app/public/videos/stage2-meet-the-hero.mp4) |
+| Video | Path | YouTube | Live Cloud Run Stream |
+| :--- | :--- | :--- | :--- |
+| **Official 15s Launch Trailer** | [`public/assets/monster_rush_trailer.mp4`](./public/assets/monster_rush_trailer.mp4) | [Watch on YouTube](https://www.youtube.com/watch?v=Fxcztban6uY) | [Stream MP4](https://monster-rush-lost-island-880601596687.us-central1.run.app/public/assets/monster_rush_trailer.mp4) |
+| **Stage 1 Complete Cutscene** (*"Great job! You completed Stage 1!"*) | [`public/videos/stage1-complete.mp4`](./public/videos/stage1-complete.mp4) | [Watch on YouTube](https://www.youtube.com/watch?v=7MsWvDHVNJ8) | [Stream MP4](https://monster-rush-lost-island-880601596687.us-central1.run.app/public/videos/stage1-complete.mp4) |
+| **Stage 2 Complete Cutscene** (*"Great job! You passed Stage 2! Let's go to Stage 3!"*) | [`public/videos/stage2-complete.mp4`](./public/videos/stage2-complete.mp4) | [Watch on YouTube](https://www.youtube.com/watch?v=jwcN5bDZ25c) | [Stream MP4](https://monster-rush-lost-island-880601596687.us-central1.run.app/public/videos/stage2-complete.mp4) |
+| **World Reveal Cinematic** | [`public/videos/stage1-world-reveal.mp4`](./public/videos/stage1-world-reveal.mp4) | [Watch on YouTube](https://www.youtube.com/watch?v=-k505d3_3uw) | [Stream MP4](https://monster-rush-lost-island-880601596687.us-central1.run.app/public/videos/stage1-world-reveal.mp4) |
+| **Meet the Hero Cinematic** | [`public/videos/stage2-meet-the-hero.mp4`](./public/videos/stage2-meet-the-hero.mp4) | [Watch on YouTube](https://www.youtube.com/watch?v=ddCzs-cTFWs) | [Stream MP4](https://monster-rush-lost-island-880601596687.us-central1.run.app/public/videos/stage2-meet-the-hero.mp4) |
 
 ---
 

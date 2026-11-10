@@ -24,13 +24,29 @@ In this guide, we walk through **exact step-by-step instructions and prompts** s
 
 ---
 
-## 1. Watch the Gemini Omni 1.2 Flash Videos & Stage-Completion Cutscenes
+## 1. Watch the Gemini Omni 1.2 Flash Videos & Stage-Completion Cutscenes (on YouTube)
 
 Every video below was generated using **Gemini Omni 1.2 Flash (`models/gemini-omni-1.2-flash`)**, conditioned on our canonical **Nano Banana** character and environment sheets:
 
-- **Official 15s AI Launch Trailer**: [Watch MP4 on Cloud Run](https://monster-rush-lost-island-880601596687.us-central1.run.app/public/assets/monster_rush_trailer.mp4)
-- **Stage 1 Complete Celebratory Cutscene (*"Great job! You completed Stage 1!"*)**: [Watch MP4 on Cloud Run](https://monster-rush-lost-island-880601596687.us-central1.run.app/public/videos/stage1-complete.mp4)
-- **Stage 2 Complete Celebratory Cutscene (*"Great job! You passed Stage 2! Let's go to Stage 3!"*)**: [Watch MP4 on Cloud Run](https://monster-rush-lost-island-880601596687.us-central1.run.app/public/videos/stage2-complete.mp4)
+1. **Official 15s AI Launch Trailer**: [Watch on YouTube](https://www.youtube.com/watch?v=Fxcztban6uY) | [Direct MP4](https://monster-rush-lost-island-880601596687.us-central1.run.app/public/assets/monster_rush_trailer.mp4)
+
+https://www.youtube.com/watch?v=Fxcztban6uY
+
+2. **Stage 1 Complete Celebratory Cutscene (*"Great job! You completed Stage 1!"*)**: [Watch on YouTube](https://www.youtube.com/watch?v=7MsWvDHVNJ8) | [Direct MP4](https://monster-rush-lost-island-880601596687.us-central1.run.app/public/videos/stage1-complete.mp4)
+
+https://www.youtube.com/watch?v=7MsWvDHVNJ8
+
+3. **Stage 2 Complete Celebratory Cutscene (*"Great job! You passed Stage 2! Let's go to Stage 3!"*)**: [Watch on YouTube](https://www.youtube.com/watch?v=jwcN5bDZ25c) | [Direct MP4](https://monster-rush-lost-island-880601596687.us-central1.run.app/public/videos/stage2-complete.mp4)
+
+https://www.youtube.com/watch?v=jwcN5bDZ25c
+
+4. **World Reveal Cinematic**: [Watch on YouTube](https://www.youtube.com/watch?v=-k505d3_3uw) | [Direct MP4](https://monster-rush-lost-island-880601596687.us-central1.run.app/public/videos/stage1-world-reveal.mp4)
+
+https://www.youtube.com/watch?v=-k505d3_3uw
+
+5. **Meet the Hero Bramble Cinematic**: [Watch on YouTube](https://www.youtube.com/watch?v=ddCzs-cTFWs) | [Direct MP4](https://monster-rush-lost-island-880601596687.us-central1.run.app/public/videos/stage2-meet-the-hero.mp4)
+
+https://www.youtube.com/watch?v=ddCzs-cTFWs
 
 ![End of Stage 1 Celebratory Video Overlay](https://monster-rush-lost-island-880601596687.us-central1.run.app/public/screenshots/stage1_clear_video_screen.png)
 
