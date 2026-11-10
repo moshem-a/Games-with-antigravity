@@ -3,7 +3,8 @@
 [![Play Live on Google Cloud Run](https://img.shields.io/badge/Play_Live_on_Cloud_Run-Monster_Rush-4285F4?style=for-the-badge&logo=googlecloud)](https://monster-rush-lost-island-880601596687.us-central1.run.app)
 
 - **Live Playable Game (Google Cloud Run)**: [https://monster-rush-lost-island-880601596687.us-central1.run.app](https://monster-rush-lost-island-880601596687.us-central1.run.app)
-- **Full Developer Medium Article**: [Read `MEDIUM_ARTICLE.md`](./MEDIUM_ARTICLE.md)
+- **Interactive Developer Guide & Prompt Playbook (`/docs`)**: [https://monster-rush-lost-island-880601596687.us-central1.run.app/docs](https://monster-rush-lost-island-880601596687.us-central1.run.app/docs)
+- **Full Developer Medium Article (`MEDIUM_ARTICLE.md` / `MEDIUM_ARTICLE.html`)**: [Read `MEDIUM_ARTICLE.md`](./MEDIUM_ARTICLE.md) | [View `MEDIUM_ARTICLE.html`](./MEDIUM_ARTICLE.html)
 
 ![Monster Rush Gameplay](./public/screenshots/e2e_04_gameplay_running.png)
 
