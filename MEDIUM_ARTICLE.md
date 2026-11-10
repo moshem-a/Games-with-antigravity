@@ -2,6 +2,8 @@
 
 *A complete step-by-step developer's blueprint—including the exact prompts, plugin setup (`game-dev` & `game-architect`), Nano Banana asset workflows, and parallel Gemini Omni 1.2 Flash video generation—deployed live to Google Cloud Run.*
 
+**Author:** **Moshe Mazuz**
+
 - **Play the Live Game on Google Cloud Run**: [https://monster-rush-lost-island-880601596687.us-central1.run.app](https://monster-rush-lost-island-880601596687.us-central1.run.app)
 - **Interactive HTML Guide on Cloud Run (`/docs`)**: [https://monster-rush-lost-island-880601596687.us-central1.run.app/docs](https://monster-rush-lost-island-880601596687.us-central1.run.app/docs)
 - **Full Source Code on GitHub**: [https://github.com/moshem-a/Games-with-antigravity](https://github.com/moshem-a/Games-with-antigravity)

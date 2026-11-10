@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>From One Prompt to a 60fps Mobile Game: Building AI-Native Games with Google Antigravity &amp; Gemini Omni 1.2 Flash</title>
+  <meta name="author" content="Moshe Mazuz" />
+  <title>From One Prompt to a 60fps Mobile Game — By Moshe Mazuz | Google Antigravity &amp; Gemini Omni 1.2 Flash</title>
   <style>
     :root {
       --text-main: #242424;
@@ -238,6 +239,55 @@
       border-radius: 20px;
       box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
     }
+    .author-byline {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin: 0 0 24px;
+      padding: 14px 18px;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-light);
+      border-radius: 14px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    .author-avatar {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #1a73e8, #0f172a);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 17px;
+      letter-spacing: 0.04em;
+      flex-shrink: 0;
+    }
+    .author-meta {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.35;
+    }
+    .author-name {
+      font-size: 17px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+    .author-role {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+    .author-footer {
+      margin-top: 56px;
+      padding: 24px 28px;
+      border-top: 2px solid var(--border-light);
+      background: var(--bg-subtle);
+      border-radius: 16px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 16px;
+      color: #1e293b;
+    }
   </style>
 </head>
 <body>
@@ -248,6 +298,13 @@
       <p class="subtitle">
         A complete step-by-step developer's blueprint—including the exact prompts, plugin setup (<code>game-dev</code> &amp; <code>game-architect</code>), Nano Banana asset workflows, and parallel Gemini Omni 1.2 Flash video generation—deployed live to Google Cloud Run.
       </p>
+      <div class="author-byline">
+        <div class="author-avatar">MM</div>
+        <div class="author-meta">
+          <span class="author-name">By Moshe Mazuz</span>
+          <span class="author-role">Google Cloud &bull; Built with Google Antigravity, Nano Banana &amp; Gemini Omni 1.2 Flash &bull; 10 min read</span>
+        </div>
+      </div>
       <div class="resource-bar">
         <a class="btn-link btn-primary" href="https://monster-rush-lost-island-880601596687.us-central1.run.app" target="_blank" rel="noopener">
           &#9654; Play Live Game on Google Cloud Run
@@ -706,6 +763,11 @@ Do not claim that something works unless it has actually been tested.</code></pr
       <li><strong>Run Video Jobs in Parallel (Prompt 5):</strong> Dispatching all <code>models/gemini-omni-1.2-flash</code> video requests concurrently via <code>ThreadPoolExecutor</code> cuts media production latency by 3&times;.</li>
       <li><strong>Close the Loop with Browser E2E Verification (Prompt 6):</strong> Coupling <code>node --test</code> unit tests with headless Chrome CDP verification guarantees that assets, videos, audio synthesis, and UI overlays work together with zero runtime errors.</li>
     </ol>
+
+    <footer class="author-footer">
+      <strong>Written &amp; Built by Moshe Mazuz</strong><br />
+      <span>Explore the live game at <a href="https://monster-rush-lost-island-880601596687.us-central1.run.app" target="_blank" rel="noopener">monster-rush-lost-island-880601596687.us-central1.run.app</a> and the full source code on GitHub at <a href="https://github.com/moshem-a/Games-with-antigravity" target="_blank" rel="noopener">github.com/moshem-a/Games-with-antigravity</a>.</span>
+    </footer>
   </article>
 </body>
 </html>
