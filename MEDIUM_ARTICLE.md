@@ -6,6 +6,8 @@
 - **Interactive HTML Guide on Cloud Run (`/docs`)**: [https://monster-rush-lost-island-880601596687.us-central1.run.app/docs](https://monster-rush-lost-island-880601596687.us-central1.run.app/docs)
 - **Full Source Code on GitHub**: [https://github.com/moshem-a/Games-with-antigravity](https://github.com/moshem-a/Games-with-antigravity)
 
+![Building AI-Native Games with Google Antigravity & Gemini Omni 1.2 Flash — Hero Cover](https://monster-rush-lost-island-880601596687.us-central1.run.app/public/assets/medium_cover_hero.png)
+
 ![Monster Rush: The Lost Island — Active 3-Lane Gameplay](https://monster-rush-lost-island-880601596687.us-central1.run.app/public/screenshots/e2e_04_gameplay_running.png)
 
 ---
