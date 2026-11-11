@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="36" viewBox="0 0 320 36" role="img" aria-label="PLAY LIVE ON CLOUD RUN: MONSTER RUSH">
+  <title>PLAY LIVE ON CLOUD RUN: MONSTER RUSH</title>
+  <rect width="195" height="36" rx="6" fill="#0f172a"/>
+  <rect x="191" width="129" height="36" rx="6" fill="#1a73e8"/>
+  <rect x="191" width="8" height="36" fill="#1a73e8"/>
+  <polygon points="20,12 20,24 30,18" fill="#38bdf8"/>
+  <text x="108" y="22" fill="#f8fafc" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="11.5" font-weight="700" text-anchor="middle" letter-spacing="0.6">PLAY LIVE ON CLOUD RUN</text>
+  <text x="255" y="22" fill="#ffffff" font-family="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif" font-size="11.5" font-weight="800" text-anchor="middle" letter-spacing="0.6">MONSTER RUSH</text>
+</svg>

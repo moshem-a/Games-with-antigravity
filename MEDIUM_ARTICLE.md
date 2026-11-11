@@ -8,9 +8,9 @@
 - **Interactive HTML Guide on Cloud Run (`/docs`)**: [https://monster-rush-lost-island-880601596687.us-central1.run.app/docs](https://monster-rush-lost-island-880601596687.us-central1.run.app/docs)
 - **Full Source Code on GitHub**: [https://github.com/moshem-a/Games-with-antigravity](https://github.com/moshem-a/Games-with-antigravity)
 
-![Building AI-Native Games with Google Antigravity & Gemini Omni 1.2 Flash — Hero Cover](https://monster-rush-lost-island-880601596687.us-central1.run.app/public/assets/medium_cover_hero.png)
+![Building AI-Native Games with Google Antigravity & Gemini Omni 1.2 Flash — Hero Cover](./public/assets/medium_cover_hero.png)
 
-![Monster Rush: The Lost Island — Active 3-Lane Gameplay](https://monster-rush-lost-island-880601596687.us-central1.run.app/public/screenshots/e2e_04_gameplay_running.png)
+![Monster Rush: The Lost Island — Active 3-Lane Gameplay](./public/screenshots/e2e_04_gameplay_running.png)
 
 ---
 
@@ -52,9 +52,9 @@ https://www.youtube.com/watch?v=-k505d3_3uw
 
 https://www.youtube.com/watch?v=ddCzs-cTFWs
 
-![End of Stage 1 Celebratory Video Overlay](https://monster-rush-lost-island-880601596687.us-central1.run.app/public/screenshots/stage1_clear_video_screen.png)
+![End of Stage 1 Celebratory Video Overlay](./public/screenshots/stage1_clear_video_screen.png)
 
-![End of Stage 2 Celebratory Video Overlay](https://monster-rush-lost-island-880601596687.us-central1.run.app/public/screenshots/stage2_clear_video_screen.png)
+![End of Stage 2 Celebratory Video Overlay](./public/screenshots/stage2_clear_video_screen.png)
 
 ---
 
@@ -180,13 +180,13 @@ Create a consistent game asset sheet matching the exact visual style and lightin
 Arrange each asset separately with clear spacing and no overlapping assets.
 ```
 
-![Canonical Character Sheet — Bramble](https://monster-rush-lost-island-880601596687.us-central1.run.app/public/assets/character_canonical.png)
+![Canonical Character Sheet — Bramble](./public/assets/character_canonical.png)
 
-![Character Expressions & Action Poses Sheet](https://monster-rush-lost-island-880601596687.us-central1.run.app/public/assets/character/character_expressions_poses.png)
+![Character Expressions & Action Poses Sheet](./public/assets/character/character_expressions_poses.png)
 
-![Floating Island Environment Concept](https://monster-rush-lost-island-880601596687.us-central1.run.app/public/assets/environment_concept.png)
+![Floating Island Environment Concept](./public/assets/environment_concept.png)
 
-![Master 3D Game Collectibles, Obstacles & Portal Sheet](https://monster-rush-lost-island-880601596687.us-central1.run.app/public/assets/game_asset_sheet.png)
+![Master 3D Game Collectibles, Obstacles & Portal Sheet](./public/assets/game_asset_sheet.png)
 
 **What Antigravity Did:**
 The `image-generator` subagent generated the canonical character (`character_canonical.png`), the 4-pose expression sheet (`character_expressions_poses.png`), the island environment (`environment_concept.png`), and the master item sheet (`game_asset_sheet.png`). Antigravity then executed an automated alpha background-extraction script to slice the sheet into individual transparent sprites (`hero_sprite.png`, `coin_sprite.png`, `gem_sprite.png`, `chest_sprite.png`, `stone_sprite.png`, `trap_sprite.png`, `portal_sprite.png`) inside `public/assets/`.
@@ -389,11 +389,11 @@ projectTrackPoint(lane, dist, z, width, height) {
 }
 ```
 
-![Start Screen](https://monster-rush-lost-island-880601596687.us-central1.run.app/public/screenshots/e2e_02_start_screen.png)
+![Start Screen](./public/screenshots/e2e_02_start_screen.png)
 
-![Portal Awakened on the Island Runway](https://monster-rush-lost-island-880601596687.us-central1.run.app/public/screenshots/e2e_07_portal_awakened.png)
+![Portal Awakened on the Island Runway](./public/screenshots/e2e_07_portal_awakened.png)
 
-![Move to Stage 2 Summary Screen](https://monster-rush-lost-island-880601596687.us-central1.run.app/public/screenshots/stage1_move_to_stage2_screen.png)
+![Move to Stage 2 Summary Screen](./public/screenshots/stage1_move_to_stage2_screen.png)
 
 ---
 

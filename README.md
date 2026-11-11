@@ -1,10 +1,14 @@
 # Monster Rush: The Lost Island — Built with Google Antigravity, Nano Banana & Gemini Omni 1.2 Flash
 
-[![Play Live on Google Cloud Run](https://img.shields.io/badge/Play_Live_on_Cloud_Run-Monster_Rush-4285F4?style=for-the-badge&logo=googlecloud)](https://monster-rush-lost-island-880601596687.us-central1.run.app)
+[![Play Live on Google Cloud Run](./public/assets/play_live_badge.svg)](https://monster-rush-lost-island-880601596687.us-central1.run.app) [![Developer Guide & Prompts](./public/assets/read_guide_badge.svg)](https://monster-rush-lost-island-880601596687.us-central1.run.app/docs)
+
+**Author:** **Moshe Mazuz**
 
 - **Live Playable Game (Google Cloud Run)**: [https://monster-rush-lost-island-880601596687.us-central1.run.app](https://monster-rush-lost-island-880601596687.us-central1.run.app)
 - **Interactive Developer Guide & Prompt Playbook (`/docs`)**: [https://monster-rush-lost-island-880601596687.us-central1.run.app/docs](https://monster-rush-lost-island-880601596687.us-central1.run.app/docs)
 - **Full Developer Medium Article (`MEDIUM_ARTICLE.md` / `MEDIUM_ARTICLE.html`)**: [Read `MEDIUM_ARTICLE.md`](./MEDIUM_ARTICLE.md) | [View `MEDIUM_ARTICLE.html`](./MEDIUM_ARTICLE.html)
+
+![Building AI-Native Games with Google Antigravity & Gemini Omni 1.2 Flash — Hero Cover](./public/assets/medium_cover_hero.png)
 
 ![Monster Rush Gameplay](./public/screenshots/e2e_04_gameplay_running.png)
 
