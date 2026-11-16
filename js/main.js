@@ -97,6 +97,9 @@ class MonsterRushApp {
     this.scaleX = 1;
     this.scaleY = 1;
     this.lastFrameTime = performance.now();
+    this.rafId = 0;
+    this._boundLoop = (nextNow) => this.loop(nextNow);
+    this._screenEntries = Object.entries(this.screens);
 
     // Touch gesture tracking
     this.touchStartX = 0;
@@ -129,9 +132,9 @@ class MonsterRushApp {
     // Start with the official 15s trailer playing in the intro screen
     this.openTrailer(true);
 
-    // Start 60fps loop
+    // Start 60fps loop with pre-bound callback (zero per-frame closure allocation)
     this.lastFrameTime = performance.now();
-    requestAnimationFrame((now) => this.loop(now));
+    this.rafId = requestAnimationFrame(this._boundLoop);
   }
 
   setupResponsiveCanvas() {
@@ -160,7 +163,8 @@ class MonsterRushApp {
   }
 
   showScreen(activeKey) {
-    for (const [key, el] of Object.entries(this.screens)) {
+    for (let i = 0; i < this._screenEntries.length; i++) {
+      const [key, el] = this._screenEntries[i];
       if (!el) continue;
       if (key === activeKey) {
         el.classList.remove('hidden');
@@ -674,6 +678,10 @@ class MonsterRushApp {
   }
 
   loop(now) {
+    if (this.rafId) {
+      cancelAnimationFrame(this.rafId);
+      this.rafId = 0;
+    }
     const dt = Math.min(0.1, Math.max(0.001, (now - this.lastFrameTime) / 1000));
     this.lastFrameTime = now;
 
@@ -690,7 +698,7 @@ class MonsterRushApp {
     );
     this.world.render(this.ctx, LOGICAL_WIDTH, LOGICAL_HEIGHT, this.loader.images);
 
-    requestAnimationFrame((nextNow) => this.loop(nextNow));
+    this.rafId = requestAnimationFrame(this._boundLoop);
   }
 }
 

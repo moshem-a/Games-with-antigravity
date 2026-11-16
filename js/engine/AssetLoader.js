@@ -40,6 +40,8 @@ export class AssetLoader {
         const img = new Image();
         img.decoding = 'async';
         img.onload = () => {
+          img.onload = null;
+          img.onerror = null;
           this.images[key] = img;
           this.status[key] = { loaded: true, width: img.naturalWidth, height: img.naturalHeight, src };
           completed++;
@@ -47,6 +49,8 @@ export class AssetLoader {
           resolve(true);
         };
         img.onerror = () => {
+          img.onload = null;
+          img.onerror = null;
           this.status[key] = { loaded: false, width: 0, height: 0, src };
           completed++;
           if (onProgress) onProgress(completed / entries.length, key);

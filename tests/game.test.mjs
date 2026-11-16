@@ -241,3 +241,58 @@ test('8. Static security verification: zero unsafe DOM sinks or hardcoded secret
     }
   }
 });
+
+test('9. Zero-GC & Memory-Leak prevention: cached CanvasGradients and AudioNode onended disconnection', () => {
+  const world = new RunnerWorld();
+  world.resetRun(1);
+  world.spawnEntity(ENTITY_TYPE.GEM, 0, 300, 0);
+  world.spawnEntity(ENTITY_TYPE.PORTAL, 0, 500, 0);
+
+  let linearGradientCalls = 0;
+  let radialGradientCalls = 0;
+  const mockGrad = { addColorStop() {} };
+  const mockCtx = {
+    save() {},
+    restore() {},
+    translate() {},
+    rotate() {},
+    scale() {},
+    beginPath() {},
+    moveTo() {},
+    lineTo() {},
+    closePath() {},
+    fill() {},
+    stroke() {},
+    fillRect() {},
+    arc() {},
+    ellipse() {},
+    drawImage() {},
+    strokeText() {},
+    fillText() {},
+    createLinearGradient() {
+      linearGradientCalls++;
+      return mockGrad;
+    },
+    createRadialGradient() {
+      radialGradientCalls++;
+      return mockGrad;
+    },
+  };
+
+  // Render 120 frames at 540x960
+  for (let frame = 0; frame < 120; frame++) {
+    world.render(mockCtx, 540, 960, {});
+  }
+
+  assert.equal(linearGradientCalls, 4, 'LinearGradients must be created only once and cached across 120 frames');
+  assert.equal(radialGradientCalls, 2, 'RadialGradients must be created only once and cached across 120 frames');
+
+  const audioContent = fs.readFileSync(path.join(ROOT_DIR, 'js/engine/AudioSynthesizer.js'), 'utf8');
+  assert.ok(audioContent.includes('osc.onended'), 'AudioSynthesizer must attach osc.onended cleanup handler');
+  assert.ok(audioContent.includes('osc.disconnect()'), 'AudioSynthesizer must disconnect OscillatorNode on end');
+  assert.ok(audioContent.includes('gain.disconnect()'), 'AudioSynthesizer must disconnect GainNode on end');
+
+  const mainContent = fs.readFileSync(path.join(ROOT_DIR, 'js/main.js'), 'utf8');
+  assert.ok(mainContent.includes('this._boundLoop'), 'MonsterRushApp must use a pre-bound requestAnimationFrame callback');
+});
+

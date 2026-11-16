@@ -77,6 +77,9 @@ export class RunnerWorld {
     this.portalBurstTimer = 0;
     this.shaker = new CameraShaker();
     this._scratchProj = { x: 0, y: 0, groundY: 0, scale: 1 };
+    this._lanes = [-1, 0, 1];
+    this._laneDivs = [-0.33, 0.33];
+    this._gradCache = null;
 
     // Zero-GC Object Pools
     this.entityPool = new ObjectPool(() => ({
@@ -261,13 +264,14 @@ export class RunnerWorld {
     }
 
     this.patternIndex++;
-    const lanes = [-1, 0, 1];
-    const safeLane = lanes[Math.floor(Math.random() * 3)];
+    const lanes = this._lanes;
+    const safeIdx = Math.floor(Math.random() * 3);
+    const safeLane = lanes[safeIdx];
     const startDist = 1080;
 
     // Every 5th wave: spawn a Treasure Chest or Power-up or Heart
     if (this.patternIndex % 5 === 0) {
-      const rewardLane = lanes[(lanes.indexOf(safeLane) + 1) % 3];
+      const rewardLane = lanes[(safeIdx + 1) % 3];
       if (this.player.lives < this.player.maxLives && Math.random() < 0.35) {
         this.spawnEntity(ENTITY_TYPE.HEART, rewardLane, startDist + 80, 20);
       } else if (Math.random() < 0.55) {
@@ -699,8 +703,68 @@ export class RunnerWorld {
     return this._scratchProj;
   }
 
+  _ensureGradients(ctx, width, height) {
+    if (
+      this._gradCache &&
+      this._gradCache.ctx === ctx &&
+      this._gradCache.width === width &&
+      this._gradCache.height === height
+    ) {
+      return this._gradCache;
+    }
+
+    const horizonY = height * 0.30;
+    const bottomY = height;
+
+    const skyGrad = ctx.createLinearGradient(0, 0, 0, height);
+    skyGrad.addColorStop(0, '#0ea5e9');
+    skyGrad.addColorStop(0.32, '#38bdf8');
+    skyGrad.addColorStop(0.65, '#bae6fd');
+    skyGrad.addColorStop(1, '#0f172a');
+
+    const horizonFade = ctx.createLinearGradient(0, height * 0.25, 0, height * 0.44);
+    horizonFade.addColorStop(0, 'rgba(16, 185, 129, 0)');
+    horizonFade.addColorStop(0.65, 'rgba(16, 185, 129, 0.45)');
+    horizonFade.addColorStop(1, '#065f46');
+
+    const cliffGrad = ctx.createLinearGradient(0, horizonY, 0, bottomY);
+    cliffGrad.addColorStop(0, '#0d9488');
+    cliffGrad.addColorStop(0.5, '#047857');
+    cliffGrad.addColorStop(1, '#064e3b');
+
+    const roadGrad = ctx.createLinearGradient(0, horizonY, 0, bottomY);
+    roadGrad.addColorStop(0, '#10b981');
+    roadGrad.addColorStop(0.25, '#059669');
+    roadGrad.addColorStop(0.7, '#047857');
+    roadGrad.addColorStop(1, '#064e3b');
+
+    // Unit-radius radial glows scaled via ctx.scale(size, size) for zero per-frame allocations
+    const portalGlowGrad = ctx.createRadialGradient(0, 0, 0.08, 0, 0, 0.8);
+    portalGlowGrad.addColorStop(0, 'rgba(253, 224, 71, 0.95)');
+    portalGlowGrad.addColorStop(0.45, 'rgba(56, 189, 248, 0.65)');
+    portalGlowGrad.addColorStop(1, 'rgba(56, 189, 248, 0)');
+
+    const gemGlowGrad = ctx.createRadialGradient(0, 0, 0.05, 0, 0, 0.7);
+    gemGlowGrad.addColorStop(0, 'rgba(56, 189, 248, 0.85)');
+    gemGlowGrad.addColorStop(1, 'rgba(56, 189, 248, 0)');
+
+    this._gradCache = {
+      ctx,
+      width,
+      height,
+      skyGrad,
+      horizonFade,
+      cliffGrad,
+      roadGrad,
+      portalGlowGrad,
+      gemGlowGrad,
+    };
+    return this._gradCache;
+  }
+
   render(ctx, width, height, images) {
     ctx.save();
+    const grads = this._ensureGradients(ctx, width, height);
 
     // Apply camera shake
     if (this.shaker.trauma > 0) {
@@ -709,12 +773,7 @@ export class RunnerWorld {
     }
 
     // 1. Sky & Floating Island Concept Art Backdrop
-    const skyGrad = ctx.createLinearGradient(0, 0, 0, height);
-    skyGrad.addColorStop(0, '#0ea5e9');
-    skyGrad.addColorStop(0.32, '#38bdf8');
-    skyGrad.addColorStop(0.65, '#bae6fd');
-    skyGrad.addColorStop(1, '#0f172a');
-    ctx.fillStyle = skyGrad;
+    ctx.fillStyle = grads.skyGrad;
     ctx.fillRect(0, 0, width, height);
 
     if (images.environmentConcept) {
@@ -726,11 +785,7 @@ export class RunnerWorld {
       ctx.drawImage(images.environmentConcept, envX, -12, envW, envH);
 
       // Soft atmospheric blend into the 3D island track
-      const horizonFade = ctx.createLinearGradient(0, height * 0.25, 0, height * 0.44);
-      horizonFade.addColorStop(0, 'rgba(16, 185, 129, 0)');
-      horizonFade.addColorStop(0.65, 'rgba(16, 185, 129, 0.45)');
-      horizonFade.addColorStop(1, '#065f46');
-      ctx.fillStyle = horizonFade;
+      ctx.fillStyle = grads.horizonFade;
       ctx.fillRect(0, height * 0.25, width, height * 0.22);
     }
 
@@ -741,11 +796,7 @@ export class RunnerWorld {
     const bottomHalfW = width * 0.49;
 
     // Outer turquoise waterfall cliffs on left & right of island road
-    const cliffGrad = ctx.createLinearGradient(0, horizonY, 0, bottomY);
-    cliffGrad.addColorStop(0, '#0d9488');
-    cliffGrad.addColorStop(0.5, '#047857');
-    cliffGrad.addColorStop(1, '#064e3b');
-    ctx.fillStyle = cliffGrad;
+    ctx.fillStyle = grads.cliffGrad;
     ctx.fillRect(0, horizonY, width, bottomY - horizonY);
 
     // Animated turquoise waterfalls along outer edges
@@ -765,12 +816,7 @@ export class RunnerWorld {
     ctx.lineTo(width * 0.5 - bottomHalfW, bottomY);
     ctx.closePath();
 
-    const roadGrad = ctx.createLinearGradient(0, horizonY, 0, bottomY);
-    roadGrad.addColorStop(0, '#10b981');
-    roadGrad.addColorStop(0.25, '#059669');
-    roadGrad.addColorStop(0.7, '#047857');
-    roadGrad.addColorStop(1, '#064e3b');
-    ctx.fillStyle = roadGrad;
+    ctx.fillStyle = grads.roadGrad;
     ctx.fill();
 
     // Glowing gold/cyan stone curb borders
@@ -781,7 +827,8 @@ export class RunnerWorld {
     // Perspective stone slabs & glowing rune lane dividers
     ctx.strokeStyle = 'rgba(167, 243, 208, 0.35)';
     ctx.lineWidth = 2.5;
-    for (const laneDiv of [-0.33, 0.33]) {
+    for (let i = 0; i < this._laneDivs.length; i++) {
+      const laneDiv = this._laneDivs[i];
       ctx.beginPath();
       ctx.moveTo(width * 0.5 + topHalfW * laneDiv, horizonY);
       ctx.lineTo(width * 0.5 + bottomHalfW * laneDiv, bottomY);
@@ -845,26 +892,33 @@ export class RunnerWorld {
       ctx.restore();
     }
 
-    // 6. Draw Floating Score & Callout Popups
+    // 6. Draw Floating Score & Callout Popups (constant font + matrix scale to prevent Blink FontCache bloat)
     const activeTexts = this.floatingTextPool.activeList;
-    ctx.textAlign = 'center';
-    for (let i = 0; i < activeTexts.length; i++) {
-      const ft = activeTexts[i];
-      ctx.save();
-      ctx.globalAlpha = Math.max(0, Math.min(1, ft.alpha));
-      ctx.font = `800 ${Math.round(22 * ft.scale)}px 'Fredoka', 'Nunito', sans-serif`;
+    if (activeTexts.length > 0) {
+      ctx.textAlign = 'center';
+      ctx.font = "800 22px 'Fredoka', 'Nunito', sans-serif";
       ctx.strokeStyle = 'rgba(15, 23, 42, 0.85)';
       ctx.lineWidth = 5;
-      ctx.strokeText(ft.text, ft.x, ft.y);
-      ctx.fillStyle = ft.color;
-      ctx.fillText(ft.text, ft.x, ft.y);
-      ctx.restore();
+      for (let i = 0; i < activeTexts.length; i++) {
+        const ft = activeTexts[i];
+        ctx.save();
+        ctx.globalAlpha = Math.max(0, Math.min(1, ft.alpha));
+        ctx.translate(ft.x, ft.y);
+        ctx.scale(ft.scale, ft.scale);
+        ctx.strokeText(ft.text, 0, 0);
+        ctx.fillStyle = ft.color;
+        ctx.fillText(ft.text, 0, 0);
+        ctx.restore();
+      }
     }
 
     // 7. Damage Vignette Flash on Hit
     if (this.player.hitFlashTimer > 0) {
-      ctx.fillStyle = `rgba(239, 68, 68, ${this.player.hitFlashTimer * 0.55})`;
+      ctx.save();
+      ctx.globalAlpha = Math.min(1, this.player.hitFlashTimer * 0.55);
+      ctx.fillStyle = '#ef4444';
       ctx.fillRect(0, 0, width, height);
+      ctx.restore();
     }
 
     ctx.restore();
@@ -875,6 +929,7 @@ export class RunnerWorld {
       ? Math.sin(ent.spinPhase) * 10
       : 0;
     const proj = this.projectTrackPoint(ent.visualLane, ent.dist, ent.z + bobZ, width, height);
+    const grads = this._ensureGradients(ctx, width, height);
 
     ctx.save();
     // Draw ground shadow
@@ -889,28 +944,29 @@ export class RunnerWorld {
 
     if (ent.type === ENTITY_TYPE.PORTAL) {
       const size = 250 * proj.scale;
-      // Magical radial glow behind the portal
-      const glow = ctx.createRadialGradient(0, -size * 0.35, size * 0.08, 0, -size * 0.35, size * 0.8);
-      glow.addColorStop(0, 'rgba(253, 224, 71, 0.95)');
-      glow.addColorStop(0.45, 'rgba(56, 189, 248, 0.65)');
-      glow.addColorStop(1, 'rgba(56, 189, 248, 0)');
-      ctx.fillStyle = glow;
+      // Magical radial glow behind the portal using cached unit-space radial gradient
+      ctx.save();
+      ctx.translate(0, -size * 0.35);
+      ctx.scale(size, size);
+      ctx.fillStyle = grads.portalGlowGrad;
       ctx.beginPath();
-      ctx.arc(0, -size * 0.35, size * 0.8, 0, Math.PI * 2);
+      ctx.arc(0, 0, 0.8, 0, Math.PI * 2);
       ctx.fill();
+      ctx.restore();
 
       if (images.portal) {
         ctx.drawImage(images.portal, -size * 0.5, -size * 0.88, size, size);
       }
     } else if (ent.type === ENTITY_TYPE.GEM) {
       const size = 86 * proj.scale;
-      const glow = ctx.createRadialGradient(0, -size * 0.3, 4, 0, -size * 0.3, size * 0.7);
-      glow.addColorStop(0, 'rgba(56, 189, 248, 0.85)');
-      glow.addColorStop(1, 'rgba(56, 189, 248, 0)');
-      ctx.fillStyle = glow;
+      ctx.save();
+      ctx.translate(0, -size * 0.3);
+      ctx.scale(size, size);
+      ctx.fillStyle = grads.gemGlowGrad;
       ctx.beginPath();
-      ctx.arc(0, -size * 0.3, size * 0.7, 0, Math.PI * 2);
+      ctx.arc(0, 0, 0.7, 0, Math.PI * 2);
       ctx.fill();
+      ctx.restore();
 
       if (images.gem) {
         ctx.drawImage(images.gem, -size * 0.45, -size * 0.85, size * 0.9, size);
